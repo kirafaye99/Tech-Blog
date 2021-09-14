@@ -1,0 +1,28 @@
+{
+  "name": "Tech-Blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirafaye99/Tech-Blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirafaye99/Tech-Blog/issues"
+  },
+  "homepage": "https://github.com/kirafaye99/Tech-Blog#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "express-session": "^1.17.2",
+    "sequelize": "^6.6.5",
+    "tailwindcss": "^2.2.15"
+  }
+}
