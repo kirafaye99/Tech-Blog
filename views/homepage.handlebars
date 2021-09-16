@@ -1,0 +1,7 @@
+{{#each posts as |post|}} 
+{{!-- "posts" is routed from your controller
+"post" stands for each post from the "posts" array --}}
+{{> post-content}}
+{{!-- "post-content" is your post-content.handlebars partial
+It will add data for each post and render it in one of these componenets --}}
+{{/each}}

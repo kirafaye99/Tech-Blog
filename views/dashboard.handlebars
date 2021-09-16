@@ -1,0 +1,19 @@
+<!-- component -->
+{{#if logged_in}}
+<div class="heading text-center font-bold text-2xl m-5 text-gray-800">New Post</div>
+<style>
+  body {background:white !important;}
+</style>
+  <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+    <input id="post-name" class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" spellcheck="false" placeholder="Title" type="text">
+    <textarea id="post-description" class="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Describe everything about this post here"></textarea>
+    
+    <!-- icons -->
+    <div class="icons flex text-gray-500 m-2">
+    </div>
+    <!-- buttons -->
+    <div class="buttons flex">
+      <div class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">Post</div>
+    </div>
+  </div>
+{{/if}}
