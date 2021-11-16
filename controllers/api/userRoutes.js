@@ -14,9 +14,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log(req.body);
   User.create({
     username: req.body.username,
-    email: req.body.email,
+    // email: req.body.email,
     password: req.body.password
   })
     .then(userData => {
@@ -27,7 +28,10 @@ router.post('/', (req, res) => {
   
         res.json(userData);
       });
-    })
+    }) .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // router.get('/:id', (req, res) => {
