@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const bcrypt = require('bcrypt');
-const User = require('../../models/User');
-const auth = require('../../utils/auth')
+const {User, Post, Comment} = require('../../models');
+const withAuth = require('../../utils/auth')
 
 router.get('/', (req, res) => {
   User.findAll({
@@ -17,7 +17,6 @@ router.post('/', (req, res) => {
   console.log(req.body);
   User.create({
     username: req.body.username,
-    // email: req.body.email,
     password: req.body.password
   })
     .then(userData => {
@@ -34,87 +33,86 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.get('/:id', (req, res) => {
-//   User.findOne({
-//     where: {
-//       id: req.params.id,
-//     },
-//     include: [
-//       {
-//         model: Post,
-//         attributes: ['id', 'title', 'post_content', 'created_at'],
-//       },
-//       {
-//         model: Comment,
-//         attributes: ['id', 'comment_text', 'created_at'],
-//         include: {
-//           model: Post,
-//           attributes: ['title'],
-//         },
-//       },
-//     ],
-//   })
-//     .then((userData) => {
-//       if (!userData) {
-//         res.status(404).json({ message: 'No user found with this id' });
-//         return;
-//       }
-//       res.json(userData);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
+router.get('/:id', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: Post,
+        attributes: ['id', 'title', 'post_content', 'created_at'],
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'created_at'],
+        include: {
+          model: Post,
+          attributes: ['title'],
+        },
+      },
+    ],
+  })
+    .then((userData) => {
+      if (!userData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-// router.put('/:id', withAuth, (req, res) => {
-//   User.update(req.body, {
-//     individualHooks: true,
-//     where: {
-//       id: req.params.id,
-//     },
-//   })
-//     .then((userData) => {
-//       if (!userData) {
-//         res.status(404).json({ message: 'No user found with this id' });
-//         return;
-//       }
-//       res.json(userData);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
+router.put('/:id', withAuth, (req, res) => {
+  User.update(req.body, {
+    individualHooks: true,
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((userData) => {
+      if (!userData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-// router.delete('/:id', withAuth, (req, res) => {
-//   User.destroy({
-//     where: {
-//       id: req.params.id,
-//     },
-//   })
-//     .then((userData) => {
-//       if (!userData) {
-//         res.status(404).json({ message: 'No user found with this id' });
-//         return;
-//       }
-//       res.json(userData);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
-
+router.delete('/:id', withAuth, (req, res) => {
+  User.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((userData) => {
+      if (!userData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 router.post('/login', (req, res) => {
   User.findOne({
     where: {
-      email: req.body.email,
+      username: req.body.username,
     },
   }).then((userData) => {
     if (!userData) {
-      res.status(400).json({ message: 'No user with that email address!' });
+      res.status(400).json({ message: 'No user with that username!' });
       return;
     }
 
